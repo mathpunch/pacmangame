@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pac-Man Game</title>
+  <title>Pac-Man</title>
   <style>
     body {
       margin: 0;
@@ -13,11 +13,12 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
-      touch-action: none; /* prevent browser scrolling on swipe */
+      touch-action: none; /* prevent page scrolling on swipe */
     }
     canvas {
       background: black;
-      border: 2px solid #fff;
+      border: 2px solid white;
+      image-rendering: pixelated;
     }
   </style>
 </head>
@@ -97,7 +98,13 @@
           } else if (map[y][x] === 0) {
             ctx.fillStyle = "white";
             ctx.beginPath();
-            ctx.arc(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2, 3, 0, 2 * Math.PI);
+            ctx.arc(
+              x * tileSize + tileSize / 2,
+              y * tileSize + tileSize / 2,
+              3,
+              0,
+              2 * Math.PI
+            );
             ctx.fill();
           }
         }
@@ -134,7 +141,7 @@
     let touchEndX = 0;
     let touchEndY = 0;
 
-    const minSwipeDistance = 30; // px
+    const minSwipeDistance = 30; // pixels required to count as swipe
 
     document.addEventListener("touchstart", (e) => {
       const touch = e.changedTouches[0];
@@ -153,9 +160,7 @@
       const diffX = touchEndX - touchStartX;
       const diffY = touchEndY - touchStartY;
 
-      if (Math.abs(diffX) < minSwipeDistance && Math.abs(diffY) < minSwipeDistance) {
-        return;
-      }
+      if (Math.abs(diffX) < minSwipeDistance && Math.abs(diffY) < minSwipeDistance) return;
 
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) pacman.nextDir = 0; // right
